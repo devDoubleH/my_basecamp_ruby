@@ -1,0 +1,10 @@
+<%= bootstrap_form_for(@project, local: true) do |form| %>
+  <div class="row">
+    <div class="col-6">
+      <%= form.file_field :attachments, multiple: true, label_class: "text-muted", label: "Add attachments:", placeholder: "No file chosen", class: "overflow-hidden"  %>
+    </div>
+    <div class="col-auto align-self-end update_btn">
+      <%= form.primary "#{svg 'add_file'}".html_safe, render_as_button: true, class:  'btn btn-warning'%>
+    </div>
+  </div>
+<% end %>

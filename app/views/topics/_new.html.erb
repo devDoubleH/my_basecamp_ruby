@@ -1,0 +1,12 @@
+<%= bootstrap_form_for(topic, url: project_topics_path(@project)) do |f| %>
+  <div class="row mt-3">
+    <div class="col-6"><%= f.text_field :title, require: true, label: "Add new discussion", label_class: "text-muted" %>
+  </div>
+    <div class="col-4 align-self-end update_btn"><%= f.primary "#{svg 'plus'}new discussion".html_safe, render_as_button: true, class:  'btn btn-warning'%></div>
+  </div>
+  <% flash.each do |type, msg| %>
+    <% if type == 'alert' %>
+    <span class="small text-danger"><%= msg %></span>
+    <% end %>
+  <% end %>
+<% end %>

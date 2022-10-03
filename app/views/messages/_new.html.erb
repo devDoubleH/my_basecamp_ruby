@@ -1,0 +1,12 @@
+<%= bootstrap_form_for(message, url: project_topic_messages_path(project, topic)) do |f| %>
+  <div class="row my-0">
+    <div class="col pr-0"><%= f.text_field :text, require: true, hide_label: true %>
+  </div>
+    <div class="col-auto align-self-end update_btn"><%= f.primary "Send".html_safe, render_as_button: true, class:  'btn btn-warning'%></div>
+  </div>
+  <% flash.each do |type, msg| %>
+    <% if type == 'alert' %>
+    <span class="small text-danger"><%= msg %></span>
+    <% end %>
+  <% end %>
+<% end %>

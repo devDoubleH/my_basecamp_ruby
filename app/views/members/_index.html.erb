@@ -1,0 +1,14 @@
+<% if members.length > 0 %>
+    <% members.each_with_index do |member, i| %>
+      <% if member.id %>
+        <div class="col py-1 <%= "bg-light rounded" if i % 2 == 0  %>">
+          <% if member.is_admin == true %>
+            <%= svg 'admin' %>
+          <% else %>
+            <%= svg 'person' %>
+          <% end %>
+          <small><%= member.email %></small>
+        </div>
+      <% end %>
+    <% end %>
+<% end %>

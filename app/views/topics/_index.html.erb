@@ -1,0 +1,35 @@
+<div class="row mt-4" id="topics">
+  <% if @project.topics.length %>
+    <% @project.topics.each do |topic| %>
+      <% if topic.id %>
+        <div class="col-12 mb-4" id="topic-<%= topic.id %>">
+          <div class="card border-info topic">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col mr-auto font-weight-bolder text-dark">
+                    <%= topic.title %>
+                  </div>
+                  <% if @project.is_admin %>
+                    <div class="col-auto">
+                      <%= link_to edit_project_topic_path(@project, topic), class: "mr-1" do %>
+                        <%= svg 'edit' %>
+                      <% end %>
+                      <%= link_to project_topic_path(@project, topic), method: :delete, data: { confirm: 'Do you really want to delete this topic?' }  do %>
+                        <%= svg 'delete' %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+              <div class="card-body overflow-auto messages_list">
+                <%= render :partial => 'messages/index', :locals => { :project => @project, :topic => topic, :messages => Message.list(topic, current_user.id) } %>
+              </div>
+              <div class="card-footer pb-0">
+                <%= render :partial => 'messages/new', :locals => { :project => @project, :topic => topic, :message => topic.messages.build } %>
+              </div>
+            </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+<%= bootstrap_form_for(@project, local: true) do |form| %>
+    <%= form.text_field :name, label_class: "text-muted" %>
+    <%= form.text_area :description, label_class: "text-muted" %>
+    <div class="centered mt-5">
+      <%= form.submit %>
+    </div>
+<% end %>

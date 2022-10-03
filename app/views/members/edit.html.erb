@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="members-container">
+        <% if @activeMember && @activeMember.is_admin ||
+            current_user.id == @project.user.id %>
+          <h2>Change status</h2>
+          <%= render 'form', member: @member %>
+          <%= link_to 'Back', project_members_path(@project), class: "btn btn-outline-primary" %>
+        <% else %>
+          <h3>Only Admins and Owners Can Edit Members</h3>
+          <%= link_to 'Back', root_path, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

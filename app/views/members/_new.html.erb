@@ -1,0 +1,13 @@
+<%= bootstrap_form_for(member, url: project_members_path(@project)) do |f| %>
+  <div class="row mt-4">
+    <div class="col-6"><%= f.email_field :email, require: true, label: "Add new member", label_class: "text-muted" %></div>
+    <div class="col-2 align-self-end update_btn"><%= f.check_box :is_admin, custom: :switch, label: "Admin" %></div>
+
+    <div class="col-2 align-self-end update_btn"><%= f.primary "#{svg 'new_member'}".html_safe, render_as_button: true, class:  'btn btn-warning'%></div>
+  </div>
+  <% flash.each do |type, msg| %>
+    <% if type == 'alert' %>
+      <span class="small text-danger"><%= msg %></span>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,51 @@
+
+<% projects.each do |project| %>
+    <div class = "<%= "#{project.css_class} col-4 mb-4"  %>" >
+      <div class="card project_card">
+        <div class="card-header bg-dark text-white ">
+          <div class="row">
+            <div class="col mr-auto">
+              <%= link_to project_path(project) do %>
+              <h5><%= project.name %></h5>
+              <% end %>
+              <%= svg 'creator' %><small><%= project.owner %></small>
+            </div>
+            <div class="col-auto">
+              <% if project.is_admin %>
+                <%= link_to edit_project_path(project) do %>
+                  <%= svg 'edit' %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <div class="card-body overflow-auto">
+        <p class="card-text"><%= project.description %></p>
+      </div>
+
+      <div class="card-footer border-light">
+        <div class="row">
+          <div class="col-auto mr-auto">
+            <%= svg 'member' %><span class="badge badge-secondary"><%= project.num_members + 1 %></span>
+            <i class="ml-2 mr-1 fa fa-comments-o" aria-hidden="true"></i><span class="badge badge-secondary"><%= project.num_topics %></span>
+          </div>
+        <div class="col-auto">
+          <% if !project.is_owner %>
+            <%= link_to project_member_unsubscribe_path(project, project.member), :class => 'btn btn-danger  btn-sm',
+                    method: :delete,
+                    data: { confirm: 'Are you sure you want to Unsubsciribe from this project?' } do %>
+                    <% svg 'log_out' %>
+            <% end %>
+          <% else %>
+            <%= link_to project_path(project), :class => 'btn btn-danger  btn-sm',
+                  method: :delete,
+                  data: { confirm: 'Are you sure you want to delete this project?' } do %>
+                  <%= svg 'delete' %>
+                  <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>

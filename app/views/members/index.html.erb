@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="members-container">
+
+        <h2>Members</h2>
+
+        <%= link_to 'Add new Member', new_project_member_path(@project), class:"btn btn-primary" %>
+
+        <% if @members.first %>
+
+          <table class="members-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @members.each do |member| %>
+                <tr>
+                  <td><%= member.name %></td>
+                  <td><%= member.email %></td>
+                  <td>
+                    <% if member.is_admin %>
+                      <p> Admin </p>
+                    <% else %>
+                      <p> Not Admin </p>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to 'Change admin status', edit_project_member_path(@project, member), class:"btn btn-outline-primary" %>
+                    <%= link_to 'Destroy Member', [@project, member], class:"btn btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p class="members-notice">No members yet</p>
+        <% end %>
+
+        <br>
+        <%= link_to 'Back', [@project], class:"btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<% if @project.tasks.length %>
+  <p class="text-muted" id="tasks"> Tasks:</p>
+  <ul class="list-group list-group-flush mb-3">
+    <% @project.tasks.each do |task| %>
+      <% if task.id && task.completed %>
+        <li class="list-group-item text-muted">
+            <div class="row">
+              <div class="col-1"><%= link_to [@project, task, :completed => true], method: :put do %><%= svg 'checked' %><% end %></div>
+              <div class="col"><%= link_to [@project, task, :completed => true], method: :put do %><del><%= task.title %></del><% end %></div>
+              <div class="col-3"></div>
+              <div class="col-auto">
+                <span class="badge badge-secondary"><%= task.subtasks.length %></span><%= link_to "", class: "content-toggle-btn" do %>
+                  <%= svg 'list_tasks' %>
+                <% end %>
+                <%= link_to edit_project_task_path(@project, task) do %>
+                  <%= svg 'edit' %>
+                <% end %>
+                <%= link_to project_task_path(@project, task), method: :delete, data: { confirm: 'Do you really want to delete this task?' }  do %>
+                  <%= svg 'delete' %>
+                <% end %>
+              </div>
+            </div>
+            <%= render :partial => 'subtasks/index', :locals => { :project => @project, :task => task, :subtask => task.subtasks.build } %>
+        </li>
+      <% elsif task.id %>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-1"><%= link_to [@project, task, :completed => true], method: :put do %><%= svg 'unchecked' %><% end %></div>
+            <div class="col"><%= link_to [@project, task, :completed => true], method: :put do %><%= task.title %><% end %></div>
+            <div class="col-3"></div>
+            <div class="col-auto">
+              <span class="badge badge-secondary"><%= task.subtasks.length %></span><%= link_to "#0", class: "content-toggle-btn" do %>
+                <%= svg 'list_tasks' %>
+              <% end %>
+              <%= link_to edit_project_task_path(@project, task) do %>
+                <%= svg 'edit' %>
+              <% end %>
+              <%= link_to project_task_path(@project, task), method: :delete, data: { confirm: 'Do you really want to delete this task?' }  do %>
+                <%= svg 'delete' %>
+              <% end %>
+            </div>
+          </div>
+          <%= render :partial => 'subtasks/index', :locals => { :project => @project, :task => task, :subtask => task.subtasks.build } %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

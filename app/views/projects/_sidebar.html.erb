@@ -1,0 +1,42 @@
+<div class="position-fixed justify-content-start mt-4">
+  <% if @project.is_admin %>
+    <div class="mb-3">
+      <%= link_to edit_project_path(@project), class: "btn btn-info" do %>
+        <%= svg 'edit' %>
+        Edit Project
+      <% end %>
+    </div>
+  <% end %>
+  <div>
+    <%= link_to project_path(@project, anchor: "members"), class: "btn btn-warning mb-3" do %>
+      <%= svg 'member' %>
+      Members
+    <% end %>
+  </div>
+  <div>
+    <%= link_to project_path(@project, anchor: "topics"), class: "btn btn-warning mb-3" do %>
+      <%= svg 'chat' %>
+      Topics
+    <% end %>
+  </div>
+  <div>
+    <%= link_to project_path(@project, anchor: "tasks"), class: "btn btn-warning mb-3" do %>
+      <%= svg 'tasks' %>
+      Tasks
+    <% end %>
+  </div>
+  <div>
+    <%= link_to project_path(@project, anchor: "attachments"), class: "btn btn-warning mb-3" do %>
+      <%= svg 'attachment' %>
+      Attachments
+    <% end %>
+  </div>
+  <% if !@project.is_owner %>
+    <div>
+      <%= link_to project_member_unsubscribe_path(@project, @project.member), :class => 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure you want to Unsubsciribe from this project?' } do %>
+        <%= svg 'log_out' %>
+        Leave Project
+      <% end %>
+    </div>
+  <% end %>
+</div>

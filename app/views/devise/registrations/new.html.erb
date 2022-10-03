@@ -1,0 +1,26 @@
+<main>
+  <div class="container form">
+    <div class="row h-100 justify-content-center">
+      <div class="col-6 align-self-center">
+        <%= link_to root_path do %>
+          <div class="w-50 m-auto text-info">
+            <%= svg 'logo'%>
+          </div>
+        <% end %>
+          <h2 class="centered">Sign up</h2>
+        <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+            <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            <%= f.password_field :password, autocomplete: "new-password", help: "Must be at least 6 characters long"  %>
+
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            <div class="centered">
+            <%= f.submit "Sign up", class: "btn btn-lg btn-info" %>
+            <p class="text-muted">Alreade a member? <%= link_to "Log in", new_session_path(resource_name), class: "text-reset" %></p>
+            </div>
+        <% end %>
+        </div>
+      </div>
+  </div>
+</main>

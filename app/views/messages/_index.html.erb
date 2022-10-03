@@ -1,0 +1,21 @@
+<% if messages.length > 0 %>
+  <% messages.each do |message| %>
+    <div class="row message">
+      <div class="col-1">
+        <%= svg 'chat' %>
+      </div>
+      <div class="col">
+        <p class="font-weight-bold text-secondary"><%= message.author %>
+        </p>
+        <p><%= message.text %></p>
+      </div>
+      <div class="col-auto">
+        <% if message.editable %>
+          <%= link_to edit_project_topic_message_path(@project, message.topic_id, message) do %>
+            <%= svg 'edit_message' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

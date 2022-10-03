@@ -1,0 +1,31 @@
+<main>
+  <div class="container form">
+    <div class="row h-100 justify-content-center">
+      <div class="col-10 mt-4">
+        <%= link_to edit_project_path(@project) do %><h2 class="centered"><%= @project.name %></h2><% end %>
+        <p class="text-muted centered"><small><%= svg 'creator' %>Created by: <%= @project.owner %></small></p>
+        <p class="my-3"><%= @project.description %></p>
+        <p class="text-muted" id="members">Members:</p>
+        <div class="row">
+          <div class="col py-1"><%= svg 'creator' %><small><%= @project.owner %></small></div>
+          <%= render :partial => 'members/index', :object => @project.members, as: 'members' %>
+        </div>
+        <% if @project.is_admin %>
+          <%= render :partial => 'topics/new', :object => @project.topics.build, as: 'topic' %>
+        <% end %>
+        <%= render :partial => 'topics/index', :object => @project %>
+        <% if @project.permissions[:can_write] && @project.permissions[:can_update] %>
+          <%= render :partial => 'tasks/new', :object => @project.tasks.build, as: 'task' %>
+          <%= render :partial => 'tasks/index_admin', :object => @project %>
+        <% else %>
+          <%= render :partial => 'tasks/index_general', :object => @project %>
+        <% end %>
+        <%= render :partial => 'add_attachment', :object => @project %>
+        <%= render :partial => 'index_attachment', :object => @project %>
+      </div>
+      <div class="col">
+        <%= render :partial => 'sidebar', :object => @project %>
+      </div>
+    </div>
+  </div>
+</main>

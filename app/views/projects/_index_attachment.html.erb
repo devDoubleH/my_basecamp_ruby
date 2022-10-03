@@ -1,0 +1,25 @@
+<div class="projects-attach" id="attachments">
+  <% if @project.attachments.attached? %>
+    <p class="text-muted"> Attachments:</p>
+    <% @project.attachments.each do |file| %>
+      <div class="projects-attach-item">
+        <% if @project.is_admin %>
+          <%= link_to delete_attachment_project_url(file.id),
+            method: :delete,
+            data: { confirm: 'Are you sure?' },
+            class: 'btn btn-danger  btn-sm' do %>
+            <%= svg 'delete' %>
+          <% end %>
+        <% end %>
+        <% if file.previewable? %>
+          <%= link_to(image_tag(file.preview(resize_to_limit: "100x100>").processed.service_url),  rails_blob_path(file, disposition: "attachment"))%>
+        <% elsif file.variable? %>
+          <%= link_to(image_tag(file), rails_blob_path(file, disposition: "attachment"))%>
+        <% else %>
+          <% file_title = file.blob.filename %>
+          <%= link_to "#{file_title}", rails_blob_path(file, disposition: "attachment") %>
+        <% end %>
+      </div>
+      <% end %>
+  <% end %>
+</div>

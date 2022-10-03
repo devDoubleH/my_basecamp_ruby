@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Basecamp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <% if user_signed_in? %>
+      <nav class="navbar  navbar-light px-4 align-items-end">
+        <%= link_to root_path, class: "navbar-brand text-info", id: "nav_svg" do %>
+            <%= svg 'logo'%>
+        <% end %>
+
+        <ul class="nav">
+          <li class="nav-item">
+            <%= link_to new_project_path, class:"btn btn-sm btn-outline-info nav-link" do %>
+              <%= svg 'add_project'%>
+              Add Project
+            <% end %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to edit_user_registration_path, class:"btn btn-sm btn-outline-info nav-link" do %>
+              <%= svg 'edit'%>
+              Edit Profile
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, method: :delete, class:"btn btn-sm btn-outline-info nav-link" do %>
+              <%= svg 'log_out'%>
+              Log Out
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+      <% end %>
+
+
+    <%= yield %>
+  </body>
+</html>
